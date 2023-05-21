@@ -9,7 +9,8 @@ class RefreshTokenInterceptor extends Interceptor {
 
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
-    if (err.response?.statusCode == 401) {
+    if (err.response?.statusCode == 401 &&
+        _dio.options.headers['Authorization'] != null) {
       _log('Received 401, refreshing token');
       final String? token = await _refreshBearerToken();
       if (token == null) {

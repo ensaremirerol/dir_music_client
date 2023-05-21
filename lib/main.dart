@@ -1,13 +1,16 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/services/setup_service/setup_service.dart';
+import 'core/utils/instance_controller.dart';
 import 'router.dart';
 import 'setup.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences.setPrefix('dir_');
   final setupService = SetupService();
   setupService.registerAllTasks(setupTasks);
   await setupService.setup();
@@ -30,17 +33,13 @@ class App extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      routerConfig: routes,
-      locale: context.locale,
-      supportedLocales: context.supportedLocales,
-      localizationsDelegates: context.localizationDelegates,
-      theme: ThemeData(
-        useMaterial3: true,
-        primarySwatch: Colors.blue,
-      ),
-      builder: (context, child) {
-        return child!;
-      },
-    );
+        scaffoldMessengerKey: InstanceController()
+            .getByKey<GlobalKey<ScaffoldMessengerState>>('AppScaffold'),
+        routerConfig: routes,
+        title: 'Dir Music',
+        locale: context.locale,
+        supportedLocales: context.supportedLocales,
+        localizationsDelegates: context.localizationDelegates,
+        theme: InstanceController().getByType<ThemeData>());
   }
 }

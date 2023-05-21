@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 import '../../utils/instance_controller.dart';
@@ -93,12 +94,13 @@ class ApiService {
           method: apiCall.method.name,
         ),
       );
-      if ((response.statusCode ?? 0) ~/ 100 != 2) {
+      if ((response.statusCode ?? 0) ~/ 100 == 2) {
         _log(
             'ApiCall: ${apiCall.name} completed with status code:'
             '${response.statusCode}\nresponse: ${response.data}',
             level: Level.error);
-        final ResponseObject? parsedData = apiCall.parse(response);
+        final ResponseObject? parsedData =
+            await compute(apiCall.parse, response);
         if (parsedData != null) {
           return parsedData;
         }
@@ -130,7 +132,12 @@ class ApiService {
     }
   }
 
-  set bearerToken(String token) {
+  set bearerToken(String? token) {
+    if (token == null) {
+      _bearerToken = null;
+      _dio.options.headers.remove('Authorization');
+      return;
+    }
     if (token.startsWith('Bearer')) {
       _bearerToken = token;
       _dio.options.headers['Authorization'] = _bearerToken;
@@ -146,6 +153,13 @@ class ApiService {
       _dio.interceptors
           .add(RefreshTokenInterceptor(_dio, _refreshBearerToken!));
     }
+    _dio.interceptors.add(LogInterceptor(
+      request: true,
+      requestBody: true,
+      requestHeader: true,
+      responseHeader: true,
+      responseBody: true,
+    ));
     _log('Interceptors initialized');
   }
 

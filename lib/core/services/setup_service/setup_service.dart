@@ -59,7 +59,7 @@ class SetupService {
       taskNames.remove(taskName);
     }
 
-    while (taskNamesCompleted.length < taskNames.length) {
+    while (taskNamesCompleted.length < _tasks.length) {
       final List<String> completedTasksThisLoop = [];
       for (final String taskName in taskNames) {
         final SetupTask _task = _tasks[taskName]!;

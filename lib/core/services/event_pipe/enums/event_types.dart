@@ -1,6 +1,6 @@
 part of '../event_pipe.dart';
 
-enum EventTypes { event, error }
+enum EventTypes { event, error, navigate }
 
 extension EventTypesExtension on EventTypes {
   String get name {
@@ -9,6 +9,8 @@ extension EventTypesExtension on EventTypes {
         return 'event';
       case EventTypes.error:
         return 'error';
+      case EventTypes.navigate:
+        return 'navigate';
     }
   }
 }

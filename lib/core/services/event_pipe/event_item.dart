@@ -9,6 +9,6 @@ class EventItem<T> {
 
   @override
   String toString() {
-    return 'ErrorBucketItem{from: $from, type: ${type.name} event: $event}';
+    return 'EventItem{from: $from, type: ${type.name} event: $event}';
   }
 }
