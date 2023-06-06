@@ -17,7 +17,7 @@ part './enums/http_methods.dart';
 /// A function that returns a bearer token
 ///
 /// Should return null in case of failure
-typedef BearerToken = FutureOr<String?> Function();
+typedef BearerToken = FutureOr<String?> Function(ApiService apiService);
 
 typedef ErrorResponseBuilder = ResponseObject Function(Response response);
 
@@ -92,13 +92,15 @@ class ApiService {
         queryParameters: args?.getQueryParameters(),
         options: Options(
           method: apiCall.method.name,
+          responseType: apiCall.responseType,
+          headers: args?.getHeaders(),
         ),
       );
       if ((response.statusCode ?? 0) ~/ 100 == 2) {
         _log(
             'ApiCall: ${apiCall.name} completed with status code:'
             '${response.statusCode}\nresponse: ${response.data}',
-            level: Level.error);
+            level: Level.info);
         final ResponseObject? parsedData =
             await compute(apiCall.parse, response);
         if (parsedData != null) {
@@ -151,7 +153,7 @@ class ApiService {
   void _initInterceptors() {
     if (_refreshBearerToken != null) {
       _dio.interceptors
-          .add(RefreshTokenInterceptor(_dio, _refreshBearerToken!));
+          .add(RefreshTokenInterceptor(_dio, this, _refreshBearerToken!));
     }
     _dio.interceptors.add(LogInterceptor(
       request: true,

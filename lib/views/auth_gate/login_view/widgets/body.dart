@@ -74,7 +74,7 @@ class _Body extends ConsumerWidget {
                   DirPrimaryButton(
                     label: const Text('register').tr(),
                     onPressed: () {
-                      log('Register');
+                      context.go('/auth/register');
                     },
                   ),
                 ],

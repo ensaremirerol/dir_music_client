@@ -37,9 +37,13 @@ class App extends ConsumerWidget {
             .getByKey<GlobalKey<ScaffoldMessengerState>>('AppScaffold'),
         routerConfig: routes,
         title: 'Dir Music',
+        themeMode: ThemeMode.dark,
         locale: context.locale,
         supportedLocales: context.supportedLocales,
         localizationsDelegates: context.localizationDelegates,
-        theme: InstanceController().getByType<ThemeData>());
+        theme: ThemeData(
+            primarySwatch: Colors.teal,
+            brightness: Brightness.dark,
+            useMaterial3: true));
   }
 }

@@ -8,7 +8,7 @@ class LoginApiCall extends IApiCall<LoginModel> {
       : super(
           name: 'LoginApiCall',
           method: HttpMethods.POST,
-          path: '/dir-authentication-service/login',
+          path: '/bff/login',
           requiresArgs: true,
         );
 

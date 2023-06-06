@@ -1,18 +1,23 @@
 import 'dart:convert';
 
+import 'package:audio_session/audio_session.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:json_theme/json_theme.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/services/api_service/api_service.dart';
 import 'core/services/global_navigator/global_navigator.dart';
 import 'core/services/setup_service/setup_service.dart';
+import 'services/api_service/calls/authentication/refresh_token_api_call.dart';
+import 'services/metadata_service/metadata_service.dart';
 import 'services/snackbar_service/snackbar_service.dart';
 import 'core/utils/instance_controller.dart';
 import 'services/auth_service/auth_service.dart';
+import 'services/user_service/user_service.dart';
 
 final setupTasks = [
   SetupTask(
@@ -65,6 +70,27 @@ final setupTasks = [
       task: () {
         final apiService = ApiService(
           baseUrl: 'http://localhost:8080',
+          refreshBearerToken: (apiService) async {
+            apiService.bearerToken = null;
+            try {
+              final response = await apiService.call(
+                const RefreshTokenApiCall(),
+                RefreshTokenApiCallArgs(
+                  refreshToken: InstanceController()
+                      .getByType<AuthService>()
+                      .refreshToken!,
+                ),
+              );
+
+              if (response.statusCode ~/ 100 == 2) {
+                return response.data!['access_token'];
+              }
+              return null;
+            } catch (e) {
+              Logger().e(e);
+              return null;
+            }
+          },
         );
         apiService.init();
         InstanceController().addInstance(
@@ -89,5 +115,33 @@ final setupTasks = [
         final authService = AuthService();
         authService.init();
         InstanceController().addInstance(AuthService, authService);
+      }),
+  SetupTask(
+    name: 'UserService',
+    dependencies: ['Logger', 'ApiService'],
+    task: () {
+      InstanceController().addInstance(UserService, UserService());
+    },
+  ),
+  SetupTask(
+      name: 'MetadataService',
+      dependencies: ['Logger', 'ApiService'],
+      task: () {
+        InstanceController().addInstance(MetadataService, MetadataService());
+      }),
+  SetupTask(
+    name: 'AudioType',
+    dependencies: [],
+    task: () async {
+      final session = await AudioSession.instance;
+      await session.configure(const AudioSessionConfiguration.music());
+      InstanceController().addInstance(AudioSession, session);
+    },
+  ),
+  SetupTask(
+      name: 'AudioPlayer',
+      dependencies: ['AudioType'],
+      task: () {
+        InstanceController().addInstance(AudioPlayer, AudioPlayer());
       }),
 ];

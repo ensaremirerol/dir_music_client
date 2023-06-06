@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
+import '../../extensions/navigatgor_state_extension.dart';
 import '../../utils/instance_controller.dart';
 import '../event_pipe/event_pipe.dart';
 
@@ -28,18 +29,9 @@ class GlobalNavigator {
 
   void navigate(NavigateItem navigateItem) {
     _log('Navigate Request - Navigate Item: ${navigateItem} - Start');
-    switch (navigateItem.type) {
-      case NavigateType.push:
-        _navigatorKey.currentState!.pushNamed(navigateItem.route);
-        break;
-      case NavigateType.pushReplacement:
-        _navigatorKey.currentState!.pushReplacementNamed(navigateItem.route);
-        break;
-      case NavigateType.pushAndRemoveUntil:
-        _navigatorKey.currentState!
-            .pushNamedAndRemoveUntil(navigateItem.route, (route) => false);
-        break;
-    }
+
+    _navigatorKey.currentState!.go(navigateItem.route);
+
     _log('Navigate Request - Navigate Item: ${navigateItem} - Done');
   }
 

@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/utils/instance_controller.dart';
-import '../../../services/auth_service/auth_service.dart';
+import '../../../../core/utils/instance_controller.dart';
+import '../../../../services/auth_service/auth_service.dart';
 import '../states/login_view_state.dart';
 
 class LoginViewController extends AsyncNotifier<LoginViewState> {
@@ -27,6 +27,7 @@ class LoginViewController extends AsyncNotifier<LoginViewState> {
   }
 
   void login() async {
+    state = const AsyncValue.loading();
     final response = await _authService.login(
       state.requireValue.username,
       state.requireValue.password,

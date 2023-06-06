@@ -4,15 +4,17 @@ class RefreshTokenInterceptor extends Interceptor {
   final Dio _dio;
   final BearerToken _refreshBearerToken;
   final Logger _logger = InstanceController().getByType<Logger>();
-  final EventPipe _eventPipe = InstanceController().getByType<EventPipe>();
-  RefreshTokenInterceptor(this._dio, this._refreshBearerToken);
+  final EventPipe _eventPipe = EventPipe();
+  final ApiService _apiService;
+  RefreshTokenInterceptor(
+      this._dio, this._apiService, this._refreshBearerToken);
 
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401 &&
         _dio.options.headers['Authorization'] != null) {
       _log('Received 401, refreshing token');
-      final String? token = await _refreshBearerToken();
+      final String? token = await _refreshBearerToken(_apiService);
       if (token == null) {
         _log('Could not refresh token, logging out');
         _eventPipe.emit(EventItem<String>(

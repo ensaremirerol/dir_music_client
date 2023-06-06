@@ -7,6 +7,7 @@ import '../../core/services/global_navigator/global_navigator.dart';
 import '../../core/utils/instance_controller.dart';
 import '../../models/authentication/login_model/login_model.dart';
 import '../api_service/calls/authentication/login_api_call.dart';
+import '../api_service/calls/authentication/register_api_call.dart';
 
 class AuthService {
   final SharedPreferences _sharedPreferences =
@@ -49,6 +50,31 @@ class AuthService {
         from: RefreshTokenInterceptor));
     _log('Access Token Registered to ApiService');
     _log('Initialized');
+  }
+
+  Future<String> register(String username, String password, DateTime dateTime,
+      String phoneNumber) async {
+    _log('Registering');
+    final response = await _apiService.call(
+        const RegisterApiCall(),
+        RegisterApiCallArgs(
+            username: username,
+            password: password,
+            birthDate: dateTime,
+            phoneNumber: phoneNumber));
+
+    if (response.statusCode == 409) {
+      _log('Registration failed - username already exists');
+      return 'err_username_exists';
+    }
+
+    if (response.statusCode != 200) {
+      _log('Registration failed - unknown error (${response.statusCode})})');
+      return 'err_unknown';
+    }
+
+    _log('Registration successful');
+    return 'success';
   }
 
   Future<String> login(String username, String password) async {
@@ -105,7 +131,7 @@ class AuthService {
       type: EventTypes.navigate,
       from: this.runtimeType,
       event: NavigateItem(
-        route: '/login',
+        route: '/auth/login',
         type: NavigateType.pushAndRemoveUntil,
       ),
     ));

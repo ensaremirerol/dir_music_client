@@ -16,4 +16,8 @@ abstract class IApiCallArgs<T> {
   String pathFormat(String path) {
     return path;
   }
+
+  Map<String, dynamic>? getHeaders() {
+    return null;
+  }
 }
