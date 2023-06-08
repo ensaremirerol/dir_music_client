@@ -110,7 +110,12 @@ final setupTasks = [
   ),
   SetupTask(
       name: 'AuthService',
-      dependencies: ['Logger', 'SharedPreferences', 'ApiService'],
+      dependencies: [
+        'Logger',
+        'SharedPreferences',
+        'ApiService',
+        'UserService'
+      ],
       task: () {
         final authService = AuthService();
         authService.init();

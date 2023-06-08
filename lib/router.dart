@@ -10,6 +10,7 @@ import 'views/auth_gate/login_view/login_view.dart';
 import 'views/auth_gate/register_view/register_view.dart';
 import 'views/home_shell_view/home_shell_view.dart';
 import 'views/search_view/search_view.dart';
+import 'views/user_profile/user_profile_page.dart';
 
 Page _getPageByPlatform(
   Widget child, [
@@ -73,7 +74,7 @@ final routes = GoRouter(
           GoRoute(
               path: '/profile',
               pageBuilder: (context, state) =>
-                  _getPageByPlatform(const Center(child: Text('Profile')))),
+                  _getPageByPlatform(UserProfilePage())),
         ],
       ),
       GoRoute(
