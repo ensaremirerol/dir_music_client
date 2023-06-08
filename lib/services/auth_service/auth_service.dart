@@ -8,10 +8,13 @@ import '../../core/utils/instance_controller.dart';
 import '../../models/authentication/login_model/login_model.dart';
 import '../api_service/calls/authentication/login_api_call.dart';
 import '../api_service/calls/authentication/register_api_call.dart';
+import '../user_service/user_service.dart';
 
 class AuthService {
   final SharedPreferences _sharedPreferences =
       InstanceController().getByType<SharedPreferences>();
+  final UserService _userService =
+      InstanceController().getByType<UserService>();
   final Logger _logger = InstanceController().getByType<Logger>();
   final ApiService _apiService = InstanceController().getByType<ApiService>();
   final EventPipe _eventPipe = EventPipe.getInstance();
@@ -118,6 +121,7 @@ class AuthService {
     _log('Logging out');
     _accessToken = null;
     _refreshToken = null;
+    _userService.clear();
     _sharedPreferences.remove('access_token');
     _sharedPreferences.remove('refresh_token');
     _apiService.bearerToken = null;
