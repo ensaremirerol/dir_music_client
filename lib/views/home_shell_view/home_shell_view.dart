@@ -11,7 +11,7 @@ import '../../widgets/responsive_builder/responsive_builder.dart';
 part './widgets/body.dart';
 part './widgets/mini_music_player.dart';
 
-final homeViewIndexProvider = StateProvider<int>((ref) {
+final homeViewIndexProvider = StateProvider.autoDispose<int>((ref) {
   return 0;
 });
 
