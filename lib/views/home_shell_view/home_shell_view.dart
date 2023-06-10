@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../widgets/mini_music_player.dart';
 import '../../widgets/responsive_builder/responsive_builder.dart';
+import '../music_player/music_player.dart';
 
 part './widgets/body.dart';
 

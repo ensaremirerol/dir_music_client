@@ -18,6 +18,15 @@ class MusicController extends Notifier<MusicControllerState> {
     _audioPlayer.playerStateStream.listen((event) {
       _updateState();
     });
+    _audioPlayer.positionStream.listen((event) {
+      _updateState();
+    });
+    _audioPlayer.bufferedPositionStream.listen((event) {
+      _updateState();
+    });
+    _audioPlayer.durationStream.listen((event) {
+      _updateState();
+    });
     return MusicControllerState(
         currentSong: null,
         playlist: null,
@@ -26,6 +35,7 @@ class MusicController extends Notifier<MusicControllerState> {
         duration: Duration.zero,
         bufferedPosition: Duration.zero,
         nextSongAvailable: false,
+        currentIndex: null,
         previousSongAvailable: false);
   }
 
@@ -35,18 +45,32 @@ class MusicController extends Notifier<MusicControllerState> {
 
   void addSong(MetadataModel song) {
     final currentPlaylist = state.playlist ?? [];
-    currentPlaylist.add(song);
-    _audioPlayer.setAudioSource(_createPlaylist(currentPlaylist));
-    state = state.copyWith(playlist: currentPlaylist);
+    final newPlaylist = [...currentPlaylist];
+    newPlaylist.add(song);
+    final audioSource = _audioPlayer.audioSource as ConcatenatingAudioSource;
+    audioSource.add(AudioSource.uri(Uri.parse(_createSongUrl(song)),
+        headers: {
+          'Authorization': 'Bearer ${_authService.accessToken}',
+        },
+        tag: song.id));
+    state = state.copyWith(playlist: newPlaylist);
   }
 
   void removeSong(int index) {
     final currentPlaylist = state.playlist ?? [];
-    currentPlaylist.removeAt(index);
-    _audioPlayer.setAudioSource(_createPlaylist(currentPlaylist));
+    final newPlaylist = [...currentPlaylist];
+    newPlaylist.removeAt(index);
+    final audioSource = _audioPlayer.audioSource as ConcatenatingAudioSource;
+    audioSource.removeAt(index);
     state = state.copyWith(
-      playlist: currentPlaylist,
+      playlist: newPlaylist,
     );
+  }
+
+  void setPlaylist(List<MetadataModel> songs) async {
+    await _audioPlayer.setAudioSource(_createPlaylist(songs));
+    play();
+    state = state.copyWith(playlist: songs);
   }
 
   void clearPlaylist() {
@@ -55,8 +79,7 @@ class MusicController extends Notifier<MusicControllerState> {
   }
 
   void playSong(MetadataModel song) async {
-    await _audioPlayer.setUrl(_createSongUrl(song),
-        headers: {'Authorization': 'Bearer ${_authService.accessToken}'});
+    setPlaylist([song]);
     play();
     state = state.copyWith(currentSong: song);
   }
@@ -87,25 +110,50 @@ class MusicController extends Notifier<MusicControllerState> {
     _audioPlayer.shuffle();
   }
 
+  void skipTo(int i) {
+    _audioPlayer.seek(Duration.zero, index: i);
+  }
+
   ConcatenatingAudioSource _createPlaylist(List<MetadataModel> songs) {
     final ConcatenatingAudioSource playlist =
         ConcatenatingAudioSource(children: []);
     songs.forEach((song) {
-      playlist
-          .add(AudioSource.uri(Uri.parse(_createSongUrl(song)), tag: song.id));
+      playlist.add(AudioSource.uri(Uri.parse(_createSongUrl(song)),
+          tag: song.id,
+          headers: {'Authorization': 'Bearer ${_authService.accessToken}'}));
     });
     return playlist;
   }
 
   void _updateState() {
+    if (_audioPlayer.audioSource == null) {
+      return;
+    }
+    final ConcatenatingAudioSource currentSource =
+        _audioPlayer.audioSource as ConcatenatingAudioSource;
+    MetadataModel? currentSong;
+
+    try {
+      currentSong = state.playlist?.firstWhere(
+        (element) =>
+            element.id ==
+            (currentSource.children[_audioPlayer.currentIndex!]
+                    as UriAudioSource)
+                .tag,
+      );
+    } catch (e) {
+      currentSong = null;
+    }
+
     state = state.copyWith(
-      isPlaying: _audioPlayer.playing,
-      position: _audioPlayer.position,
-      duration: _audioPlayer.duration ?? Duration.zero,
-      bufferedPosition: _audioPlayer.bufferedPosition,
-      nextSongAvailable: _audioPlayer.hasNext,
-      previousSongAvailable: _audioPlayer.hasPrevious,
-    );
+        isPlaying: _audioPlayer.playing,
+        position: _audioPlayer.position,
+        duration: _audioPlayer.duration ?? Duration.zero,
+        bufferedPosition: _audioPlayer.bufferedPosition,
+        nextSongAvailable: _audioPlayer.hasNext,
+        previousSongAvailable: _audioPlayer.hasPrevious,
+        currentIndex: _audioPlayer.currentIndex,
+        currentSong: currentSong);
   }
 
   String _createSongUrl(MetadataModel song) {

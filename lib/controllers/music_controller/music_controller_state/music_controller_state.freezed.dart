@@ -24,6 +24,7 @@ mixin _$MusicControllerState {
   Duration get duration => throw _privateConstructorUsedError;
   bool get nextSongAvailable => throw _privateConstructorUsedError;
   bool get previousSongAvailable => throw _privateConstructorUsedError;
+  int? get currentIndex => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MusicControllerStateCopyWith<MusicControllerState> get copyWith =>
@@ -44,7 +45,8 @@ abstract class $MusicControllerStateCopyWith<$Res> {
       Duration bufferedPosition,
       Duration duration,
       bool nextSongAvailable,
-      bool previousSongAvailable});
+      bool previousSongAvailable,
+      int? currentIndex});
 
   $MetadataModelCopyWith<$Res>? get currentSong;
 }
@@ -71,6 +73,7 @@ class _$MusicControllerStateCopyWithImpl<$Res,
     Object? duration = null,
     Object? nextSongAvailable = null,
     Object? previousSongAvailable = null,
+    Object? currentIndex = freezed,
   }) {
     return _then(_value.copyWith(
       currentSong: freezed == currentSong
@@ -105,6 +108,10 @@ class _$MusicControllerStateCopyWithImpl<$Res,
           ? _value.previousSongAvailable
           : previousSongAvailable // ignore: cast_nullable_to_non_nullable
               as bool,
+      currentIndex: freezed == currentIndex
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int?,
     ) as $Val);
   }
 
@@ -137,7 +144,8 @@ abstract class _$$_MusicControllerStateCopyWith<$Res>
       Duration bufferedPosition,
       Duration duration,
       bool nextSongAvailable,
-      bool previousSongAvailable});
+      bool previousSongAvailable,
+      int? currentIndex});
 
   @override
   $MetadataModelCopyWith<$Res>? get currentSong;
@@ -162,6 +170,7 @@ class __$$_MusicControllerStateCopyWithImpl<$Res>
     Object? duration = null,
     Object? nextSongAvailable = null,
     Object? previousSongAvailable = null,
+    Object? currentIndex = freezed,
   }) {
     return _then(_$_MusicControllerState(
       currentSong: freezed == currentSong
@@ -196,6 +205,10 @@ class __$$_MusicControllerStateCopyWithImpl<$Res>
           ? _value.previousSongAvailable
           : previousSongAvailable // ignore: cast_nullable_to_non_nullable
               as bool,
+      currentIndex: freezed == currentIndex
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int?,
     ));
   }
 }
@@ -211,7 +224,8 @@ class _$_MusicControllerState implements _MusicControllerState {
       required this.bufferedPosition,
       required this.duration,
       required this.nextSongAvailable,
-      required this.previousSongAvailable})
+      required this.previousSongAvailable,
+      required this.currentIndex})
       : _playlist = playlist;
 
   @override
@@ -238,10 +252,12 @@ class _$_MusicControllerState implements _MusicControllerState {
   final bool nextSongAvailable;
   @override
   final bool previousSongAvailable;
+  @override
+  final int? currentIndex;
 
   @override
   String toString() {
-    return 'MusicControllerState(currentSong: $currentSong, playlist: $playlist, isPlaying: $isPlaying, position: $position, bufferedPosition: $bufferedPosition, duration: $duration, nextSongAvailable: $nextSongAvailable, previousSongAvailable: $previousSongAvailable)';
+    return 'MusicControllerState(currentSong: $currentSong, playlist: $playlist, isPlaying: $isPlaying, position: $position, bufferedPosition: $bufferedPosition, duration: $duration, nextSongAvailable: $nextSongAvailable, previousSongAvailable: $previousSongAvailable, currentIndex: $currentIndex)';
   }
 
   @override
@@ -263,7 +279,9 @@ class _$_MusicControllerState implements _MusicControllerState {
             (identical(other.nextSongAvailable, nextSongAvailable) ||
                 other.nextSongAvailable == nextSongAvailable) &&
             (identical(other.previousSongAvailable, previousSongAvailable) ||
-                other.previousSongAvailable == previousSongAvailable));
+                other.previousSongAvailable == previousSongAvailable) &&
+            (identical(other.currentIndex, currentIndex) ||
+                other.currentIndex == currentIndex));
   }
 
   @override
@@ -276,7 +294,8 @@ class _$_MusicControllerState implements _MusicControllerState {
       bufferedPosition,
       duration,
       nextSongAvailable,
-      previousSongAvailable);
+      previousSongAvailable,
+      currentIndex);
 
   @JsonKey(ignore: true)
   @override
@@ -295,7 +314,8 @@ abstract class _MusicControllerState implements MusicControllerState {
       required final Duration bufferedPosition,
       required final Duration duration,
       required final bool nextSongAvailable,
-      required final bool previousSongAvailable}) = _$_MusicControllerState;
+      required final bool previousSongAvailable,
+      required final int? currentIndex}) = _$_MusicControllerState;
 
   @override
   MetadataModel? get currentSong;
@@ -313,6 +333,8 @@ abstract class _MusicControllerState implements MusicControllerState {
   bool get nextSongAvailable;
   @override
   bool get previousSongAvailable;
+  @override
+  int? get currentIndex;
   @override
   @JsonKey(ignore: true)
   _$$_MusicControllerStateCopyWith<_$_MusicControllerState> get copyWith =>

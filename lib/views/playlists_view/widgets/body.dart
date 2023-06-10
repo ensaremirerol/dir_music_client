@@ -48,7 +48,9 @@ class _Body extends ConsumerWidget {
                           children: [
                             IconButton(
                                 onPressed: () {
-                                  // TODO: play playlist
+                                  ref
+                                      .read(musicControllerProvider.notifier)
+                                      .setPlaylist(data.playlists[index].songs);
                                 },
                                 icon: const Icon(Icons.play_arrow)),
                             PopupMenuButton(

@@ -9,6 +9,7 @@ import 'services/auth_service/auth_service.dart';
 import 'views/auth_gate/login_view/login_view.dart';
 import 'views/auth_gate/register_view/register_view.dart';
 import 'views/home_shell_view/home_shell_view.dart';
+import 'views/music_player/music_player.dart';
 import 'views/playlist_view/playlist_view.dart';
 import 'views/playlists_view/playlists_view.dart';
 import 'views/search_view/search_view.dart';
@@ -40,6 +41,9 @@ Page _getPageByPlatform(
 
 final GlobalKey<NavigatorState> shellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'ShellNavigator');
+
+final GlobalKey<NavigatorState> rootNavigatorKey =
+    InstanceController().getByKey('RootNavigator');
 
 // see: https://pub.dev/packages/go_router
 final routes = GoRouter(
@@ -81,13 +85,15 @@ final routes = GoRouter(
       ),
       GoRoute(
           path: '/playlists/:id',
+          redirect: (context, state) {
+            if (state.pathParameters['id'] == null) {
+              return '/home';
+            }
+          },
           pageBuilder: (context, state) {
             final String? id = state.pathParameters['id'];
-            if (id == null) {
-              return _getPageByPlatform(Container());
-            }
             return _getPageByPlatform(PlaylistView(
-              playlistId: id,
+              playlistId: id!,
             ));
           }),
       GoRoute(

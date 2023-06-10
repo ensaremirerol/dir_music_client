@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-
 import '../../../models/metadata/metadata_model.dart';
 
 part 'music_controller_state.freezed.dart';
@@ -16,5 +15,6 @@ class MusicControllerState with _$MusicControllerState {
     required Duration duration,
     required bool nextSongAvailable,
     required bool previousSongAvailable,
+    required int? currentIndex,
   }) = _MusicControllerState;
 }
