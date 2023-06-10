@@ -12,26 +12,20 @@ class _Body extends ConsumerWidget {
         body: Column(
           children: [
             Expanded(
-                child: Padding(
-              padding: const EdgeInsets.all(16.0),
               child: child,
-            )),
-            const _MiniMusicPlayer(),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: MiniMusicPlayer(),
+            ),
           ],
         ),
-        bottomNavigationBar: DecoratedBox(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                blurRadius: 10,
-                spreadRadius: 5,
-              ),
-            ],
-          ),
+        bottomNavigationBar: Theme(
+          data: Theme.of(context)
+              .copyWith(splashFactory: InkRipple.splashFactory),
           child: BottomNavigationBar(
-              backgroundColor: Colors.transparent,
               currentIndex: index,
+              iconSize: 30,
               onTap: (index) {
                 ref.read(homeViewIndexProvider.notifier).state = index;
               },

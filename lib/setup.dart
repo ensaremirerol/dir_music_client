@@ -12,8 +12,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'core/services/api_service/api_service.dart';
 import 'core/services/global_navigator/global_navigator.dart';
 import 'core/services/setup_service/setup_service.dart';
+import 'models/authentication/refresh_model/refresh_model.dart';
 import 'services/api_service/calls/authentication/refresh_token_api_call.dart';
 import 'services/metadata_service/metadata_service.dart';
+import 'services/playlist_service/playlist_service.dart';
 import 'services/snackbar_service/snackbar_service.dart';
 import 'core/utils/instance_controller.dart';
 import 'services/auth_service/auth_service.dart';
@@ -73,17 +75,18 @@ final setupTasks = [
           refreshBearerToken: (apiService) async {
             apiService.bearerToken = null;
             try {
-              final response = await apiService.call(
+              final ResponseObject<RefreshModel> response =
+                  (await apiService.call(
                 const RefreshTokenApiCall(),
                 RefreshTokenApiCallArgs(
                   refreshToken: InstanceController()
                       .getByType<AuthService>()
                       .refreshToken!,
                 ),
-              );
+              )) as ResponseObject<RefreshModel>;
 
               if (response.statusCode ~/ 100 == 2) {
-                return response.data!['access_token'];
+                return response.data!.accessToken;
               }
               return null;
             } catch (e) {
@@ -133,6 +136,12 @@ final setupTasks = [
       dependencies: ['Logger', 'ApiService'],
       task: () {
         InstanceController().addInstance(MetadataService, MetadataService());
+      }),
+  SetupTask(
+      name: 'PlaylistService',
+      dependencies: ['Logger', 'ApiService'],
+      task: () {
+        InstanceController().addInstance(PlaylistService, PlaylistService());
       }),
   SetupTask(
     name: 'AudioType',

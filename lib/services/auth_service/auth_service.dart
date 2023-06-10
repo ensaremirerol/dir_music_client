@@ -144,4 +144,8 @@ class AuthService {
   void _log(String message, {Level level = Level.debug}) {
     _logger.log(level, '<AuthService>: $message');
   }
+
+  void saveBearerToken(String token) {
+    _sharedPreferences.setString('access_token', token);
+  }
 }

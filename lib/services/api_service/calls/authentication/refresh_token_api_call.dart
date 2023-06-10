@@ -8,7 +8,7 @@ class RefreshTokenApiCall extends IApiCall<RefreshModel> {
       : super(
           name: 'RefreshTokenApiCall',
           method: HttpMethods.GET,
-          path: '/bff/refresh?refresh_token={refreshToken}',
+          path: '/bff/refresh?refreshToken={refreshToken}',
           requiresArgs: true,
         );
 

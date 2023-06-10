@@ -3,12 +3,12 @@ import 'package:dio/src/response.dart';
 import '../../../../core/services/api_service/api_service.dart';
 import '../../../../models/metadata/metadata_model.dart';
 
-class SearchMetadataApiCall extends IApiCall<List<MetadataModel>> {
-  const SearchMetadataApiCall()
+class GetMetadataApiCall extends IApiCall<List<MetadataModel>> {
+  const GetMetadataApiCall()
       : super(
-          name: 'SearchMetadataApiCall',
-          method: HttpMethods.GET,
-          path: '/bff/metadata/search/{query}',
+          name: 'GetMetadataApiCall',
+          method: HttpMethods.POST,
+          path: '/bff/metadata/get',
           requiresArgs: true,
         );
 
@@ -25,15 +25,15 @@ class SearchMetadataApiCall extends IApiCall<List<MetadataModel>> {
   }
 }
 
-class SearchMetadataApiCallArgs extends IApiCallArgs {
-  final String query;
+class GetMetadataApiCallArgs extends IApiCallArgs {
+  final List<int> ids;
 
-  const SearchMetadataApiCallArgs({
-    required this.query,
-  }) : super(name: 'SearchMetadataApiCall');
+  const GetMetadataApiCallArgs({
+    required this.ids,
+  }) : super(name: 'GetMetadataApiCall');
 
   @override
-  String pathFormat(String path) {
-    return path.replaceAll('{query}', query);
+  getBody() {
+    return ids;
   }
 }

@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
+import '../../../services/auth_service/auth_service.dart';
 import '../../utils/instance_controller.dart';
 import '../event_pipe/event_pipe.dart';
 

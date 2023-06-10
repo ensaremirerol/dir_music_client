@@ -23,11 +23,13 @@ class RefreshTokenInterceptor extends Interceptor {
             event: 'Could not refresh token, logging out'));
         return super.onError(err, handler);
       }
-      _dio.options.headers['Authorization'] = 'Bearer $token';
       _log('Token refreshed, retrying request');
-      return _dio
-          .fetch(err.requestOptions)
-          .then((value) => handler.resolve(value));
+      _apiService.bearerToken = 'Bearer $token';
+      InstanceController().getByType<AuthService>().saveBearerToken(token);
+      final RequestOptions options = err.requestOptions;
+      options.headers['Authorization'] = 'Bearer $token';
+      final resolve = await _dio.fetch(err.requestOptions);
+      return handler.resolve(resolve);
     }
     return super.onError(err, handler);
   }

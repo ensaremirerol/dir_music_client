@@ -1,14 +1,18 @@
-part of '../home_shell_view.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class _MiniMusicPlayer extends ConsumerStatefulWidget {
-  const _MiniMusicPlayer({super.key});
+import '../controllers/music_controller/music_controller.dart';
+
+class MiniMusicPlayer extends ConsumerStatefulWidget {
+  const MiniMusicPlayer({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
-      __MiniMusicPlayerState();
+      _MiniMusicPlayerState();
 }
 
-class __MiniMusicPlayerState extends ConsumerState<_MiniMusicPlayer> {
+class _MiniMusicPlayerState extends ConsumerState<MiniMusicPlayer> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(musicControllerProvider);

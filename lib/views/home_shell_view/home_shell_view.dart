@@ -1,15 +1,11 @@
-import 'dart:ui';
-
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../controllers/music_controller/music_controller.dart';
+import '../../widgets/mini_music_player.dart';
 import '../../widgets/responsive_builder/responsive_builder.dart';
 
 part './widgets/body.dart';
-part './widgets/mini_music_player.dart';
 
 final homeViewIndexProvider = StateProvider.autoDispose<int>((ref) {
   return 0;

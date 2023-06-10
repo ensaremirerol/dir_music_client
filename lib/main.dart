@@ -43,7 +43,11 @@ class App extends ConsumerWidget {
         localizationsDelegates: context.localizationDelegates,
         theme: ThemeData(
             primarySwatch: Colors.teal,
-            brightness: Brightness.dark,
+            pageTransitionsTheme: const PageTransitionsTheme(
+                builders: <TargetPlatform, PageTransitionsBuilder>{
+                  TargetPlatform.android: ZoomPageTransitionsBuilder(),
+                  TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+                }),
             useMaterial3: true));
   }
 }

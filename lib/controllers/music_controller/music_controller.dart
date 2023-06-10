@@ -55,15 +55,15 @@ class MusicController extends Notifier<MusicControllerState> {
   }
 
   void playSong(MetadataModel song) async {
-    _audioPlayer.setUrl(_createSongUrl(song),
+    await _audioPlayer.setUrl(_createSongUrl(song),
         headers: {'Authorization': 'Bearer ${_authService.accessToken}'});
     play();
     state = state.copyWith(currentSong: song);
   }
 
-  void play() {
-    _audioSession.setActive(true);
-    _audioPlayer.play();
+  void play() async {
+    await _audioSession.setActive(true);
+    await _audioPlayer.play();
   }
 
   void pause() {
@@ -99,7 +99,6 @@ class MusicController extends Notifier<MusicControllerState> {
 
   void _updateState() {
     state = state.copyWith(
-    
       isPlaying: _audioPlayer.playing,
       position: _audioPlayer.position,
       duration: _audioPlayer.duration ?? Duration.zero,

@@ -9,6 +9,8 @@ import 'services/auth_service/auth_service.dart';
 import 'views/auth_gate/login_view/login_view.dart';
 import 'views/auth_gate/register_view/register_view.dart';
 import 'views/home_shell_view/home_shell_view.dart';
+import 'views/playlist_view/playlist_view.dart';
+import 'views/playlists_view/playlists_view.dart';
 import 'views/search_view/search_view.dart';
 import 'views/user_profile/user_profile_page.dart';
 
@@ -66,7 +68,7 @@ final routes = GoRouter(
           GoRoute(
               path: '/home',
               pageBuilder: (context, state) =>
-                  _getPageByPlatform(const Center(child: Text('Home')))),
+                  _getPageByPlatform(const PlaylistsView())),
           GoRoute(
               path: '/search',
               pageBuilder: (context, state) =>
@@ -77,6 +79,17 @@ final routes = GoRouter(
                   _getPageByPlatform(UserProfilePage())),
         ],
       ),
+      GoRoute(
+          path: '/playlists/:id',
+          pageBuilder: (context, state) {
+            final String? id = state.pathParameters['id'];
+            if (id == null) {
+              return _getPageByPlatform(Container());
+            }
+            return _getPageByPlatform(PlaylistView(
+              playlistId: id,
+            ));
+          }),
       GoRoute(
         path: '/auth',
         pageBuilder: (context, state) => _getPageByPlatform(Container()),
