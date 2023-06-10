@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../models/playlists/playlist_base_model/playlist_base_model.dart';
 import '../../../models/playlists/playlist_detailed_model/playlist_detailed_model.dart';
 
 part 'playlists_view_state.freezed.dart';
