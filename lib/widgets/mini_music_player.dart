@@ -30,7 +30,7 @@ class _MiniMusicPlayerState extends ConsumerState<MiniMusicPlayer> {
           leading: SizedBox(
             height: 50,
             width: 50,
-            child: state.isPlaying && state.currentSong != null
+            child:  state.currentSong != null
                 ? CoverArtWidget(
                     id: state.currentSong!.id,
                   )

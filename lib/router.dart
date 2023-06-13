@@ -8,6 +8,7 @@ import 'core/utils/instance_controller.dart';
 import 'services/auth_service/auth_service.dart';
 import 'views/auth_gate/login_view/login_view.dart';
 import 'views/auth_gate/register_view/register_view.dart';
+import 'views/error_view/error_view.dart';
 import 'views/home_shell_view/home_shell_view.dart';
 import 'views/playlist_view/playlist_view.dart';
 import 'views/playlists_view/playlists_view.dart';
@@ -48,6 +49,9 @@ final GlobalKey<NavigatorState> rootNavigatorKey =
 final routes = GoRouter(
     navigatorKey: InstanceController().getByKey('RootNavigator'),
     initialLocation: '/',
+    errorPageBuilder: (context, state) {
+      return _getPageByPlatform(const ErrorView());
+    },
     routes: [
       GoRoute(
           path: '/',

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -21,7 +22,7 @@ class NavigationItem {
   BottomNavigationBarItem toBottomNavigationBarItem() {
     return BottomNavigationBarItem(
       icon: Icon(icon),
-      label: label,
+      label: label.tr(),
     );
   }
 }

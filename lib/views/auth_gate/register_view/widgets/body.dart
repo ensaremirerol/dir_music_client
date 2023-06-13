@@ -99,6 +99,12 @@ class _BodyState extends ConsumerState<_Body> {
                         hint: 'date_of_birth',
                         controller: _dateController,
                         prefixIcon: const Icon(Icons.calendar_today),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'date_of_birth_cannot_be_empty'.tr();
+                          }
+                          return null;
+                        },
                         onTap: () async {
                           final DateTime? result = await showDatePicker(
                             context: context,
@@ -136,7 +142,7 @@ class _BodyState extends ConsumerState<_Body> {
                       ),
                       const SizedBox(height: 20),
                       DirTextFormField(
-                        label: 'confirm_password',
+                        label: ' ',
                         hint: 'confirm_password',
                         obscureText: true,
                         prefixIcon: const Icon(Icons.lock),

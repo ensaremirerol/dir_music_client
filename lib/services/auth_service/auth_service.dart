@@ -87,7 +87,7 @@ class AuthService {
 
     if (response.statusCode == 401) {
       _log('Login failed - invalid credentials');
-      return 'err_login_failed';
+      return 'err_login_failed_invalid_credentials';
     }
 
     if (response.statusCode != 200) {

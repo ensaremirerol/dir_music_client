@@ -9,7 +9,7 @@ class _MusicPlayerTab extends ConsumerWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        state.isPlaying && state.currentSong != null
+        state.currentSong != null
             ? CoverArtWidget(
                 id: state.currentSong!.id,
               )

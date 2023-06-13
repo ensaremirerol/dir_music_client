@@ -88,7 +88,7 @@ class _Body extends ConsumerWidget {
                     Text(
                       'songs',
                       style: Theme.of(context).textTheme.titleLarge,
-                    ),
+                    ).tr(),
                     const SizedBox(
                       height: 20,
                     ),
