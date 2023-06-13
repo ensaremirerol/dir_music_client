@@ -59,7 +59,9 @@ class _Body extends ConsumerWidget {
                           children: [
                             IconButton(
                                 onPressed: () {
-                                  // Todo: Play playlist
+                                  ref
+                                      .read(musicControllerProvider.notifier)
+                                      .setPlaylist(playlist.songs);
                                 },
                                 icon: DecoratedBox(
                                   decoration: BoxDecoration(
@@ -121,24 +123,6 @@ class _Body extends ConsumerWidget {
               ],
             ),
           ));
-          // body: Column(
-          //   children: [
-          //     Expanded(
-          //       child: playlist.songs.isNotEmpty
-          //           ? ListView.builder(
-          //               itemCount: playlist.songs.length,
-          //               itemBuilder: (context, index) {
-          //                 return MusicTile(
-          //                   music: playlist.songs[index],
-          //                 );
-          //               },
-          //             )
-          //           : Center(
-          //               child: const Text('no_songs').tr(),
-          //             ),
-          //     ),
-          //   ],
-          // ));
         },
         error: (error, stackTrace) => const Center(
               child: Icon(

@@ -88,7 +88,7 @@ final routes = GoRouter(
             if (state.pathParameters['id'] == null) {
               return '/home';
             }
-            throw Exception('Invalid playlist id');
+            return null;
           },
           pageBuilder: (context, state) {
             final String? id = state.pathParameters['id'];

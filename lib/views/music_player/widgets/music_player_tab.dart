@@ -5,10 +5,17 @@ class _MusicPlayerTab extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Column(
+    final state = ref.watch(musicControllerProvider);
+    return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const _CoverArt(),
+        state.isPlaying && state.currentSong != null
+            ? CoverArtWidget(
+                id: state.currentSong!.id,
+              )
+            : const CoverArtWidget.notPlaying(
+                errorSize: 250,
+              ),
         const Divider(
           height: 50,
           indent: 50,

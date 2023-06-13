@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../models/playlists/playlist_detailed_model/playlist_detailed_model.dart';
 import '../../widgets/list_tiles/music_tile.dart';
 import '../../widgets/responsive_builder/responsive_builder.dart';
+import '../../controllers/music_controller/music_controller.dart';
 import 'controllers/playlist_view_controller.dart';
 
 part 'widgets/body.dart';

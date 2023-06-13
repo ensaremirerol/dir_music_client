@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../controllers/music_controller/music_controller.dart';
 import '../views/music_player/music_player.dart';
+import 'cover_art_widget/cover_art_widget.dart';
 
 class MiniMusicPlayer extends ConsumerStatefulWidget {
   const MiniMusicPlayer({super.key});
@@ -26,7 +27,17 @@ class _MiniMusicPlayerState extends ConsumerState<MiniMusicPlayer> {
       },
       child: Card(
         child: ListTile(
-          leading: const Hero(tag: 'album-art', child: const Icon(Icons.album)),
+          leading: SizedBox(
+            height: 50,
+            width: 50,
+            child: state.isPlaying && state.currentSong != null
+                ? CoverArtWidget(
+                    id: state.currentSong!.id,
+                  )
+                : const CoverArtWidget.notPlaying(
+                    errorSize: 50,
+                  ),
+          ),
           title: Text(state.currentSong?.title ?? 'no_song_playing'.tr()),
           subtitle: Text(state.currentSong?.artist ?? ''),
           onTap: () {

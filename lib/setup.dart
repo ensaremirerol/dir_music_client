@@ -14,6 +14,7 @@ import 'core/services/global_navigator/global_navigator.dart';
 import 'core/services/setup_service/setup_service.dart';
 import 'models/authentication/refresh_model/refresh_model.dart';
 import 'services/api_service/calls/authentication/refresh_token_api_call.dart';
+import 'services/cover_art_service/cover_art_service.dart';
 import 'services/metadata_service/metadata_service.dart';
 import 'services/playlist_service/playlist_service.dart';
 import 'services/snackbar_service/snackbar_service.dart';
@@ -143,6 +144,13 @@ final setupTasks = [
       task: () {
         InstanceController().addInstance(PlaylistService, PlaylistService());
       }),
+  SetupTask(
+    name: 'CoverArtService',
+    dependencies: ['Logger', 'ApiService'],
+    task: () {
+      InstanceController().addInstance(CoverArtService, CoverArtService());
+    },
+  ),
   SetupTask(
     name: 'AudioType',
     dependencies: [],

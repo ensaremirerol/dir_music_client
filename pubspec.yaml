@@ -45,7 +45,7 @@ dependencies:
     json_theme: ^4.0.0
     just_audio: ^0.9.34
     audio_session: ^0.1.15
-    rxdart: ^0.27.7
+    flutter_cache_manager: ^3.3.0
     # Hive Store
     # hive_flutter: ^1.1.0
 
