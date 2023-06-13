@@ -12,6 +12,7 @@ class _MusicPlayerTab extends ConsumerWidget {
         state.currentSong != null
             ? CoverArtWidget(
                 id: state.currentSong!.id,
+                errorSize: 250,
               )
             : const CoverArtWidget.notPlaying(
                 errorSize: 250,
