@@ -31,6 +31,10 @@ class LoginView extends ConsumerWidget {
             .showErrorMessage('login_failed'.tr());
       },
     );
-    return ResponsiveBuilder(smallScreen: Scaffold(body: _Body()));
+    return ResponsiveBuilder(
+        smallScreen: Scaffold(
+            body: _Body(
+      key: key,
+    )));
   }
 }

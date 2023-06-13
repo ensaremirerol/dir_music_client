@@ -20,6 +20,9 @@ class SearchView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const ResponsiveBuilder(smallScreen: _Body());
+    return ResponsiveBuilder(
+        smallScreen: _Body(
+      key: key,
+    ));
   }
 }

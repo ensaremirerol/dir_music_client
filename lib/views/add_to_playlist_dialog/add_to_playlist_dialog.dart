@@ -37,6 +37,7 @@ class AddToPlaylistDialog extends ConsumerWidget {
     return Dialog(
       insetPadding: const EdgeInsets.all(16),
       child: _Body(
+        key: key,
         songId: songId,
       ),
     );

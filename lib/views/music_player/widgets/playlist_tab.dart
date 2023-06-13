@@ -20,7 +20,7 @@ class PlaylistValues {
 }
 
 class _PlaylistTab extends ConsumerWidget {
-  const _PlaylistTab({super.key});
+  const _PlaylistTab();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

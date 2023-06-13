@@ -5,7 +5,7 @@ final isPublicProvider = StateProvider<bool>((ref) {
 });
 
 class _CreatePlaylistDialog extends ConsumerStatefulWidget {
-  const _CreatePlaylistDialog({super.key});
+  const _CreatePlaylistDialog();
 
   @override
   ConsumerState<_CreatePlaylistDialog> createState() =>
@@ -70,7 +70,7 @@ class _CreatePlaylistDialogState extends ConsumerState<_CreatePlaylistDialog> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text('cancel').tr(),
+                    child: const Text('cancel').tr(),
                   ),
                   TextButton(
                     onPressed: () {
@@ -82,7 +82,7 @@ class _CreatePlaylistDialogState extends ConsumerState<_CreatePlaylistDialog> {
                         'isPublic': ref.watch(isPublicProvider)
                       });
                     },
-                    child: Text('create').tr(),
+                    child: const Text('create').tr(),
                   ),
                 ],
               )

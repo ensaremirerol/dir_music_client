@@ -8,7 +8,7 @@ import '../states/position_state.dart';
 class MusicPlayerController extends Notifier<PositionState> {
   bool _allowStateUpdate = true;
 
-  final BounceBack bounceBack = BounceBack();
+  final BounceBack _bounceBack = BounceBack();
 
   @override
   build() {
@@ -25,7 +25,7 @@ class MusicPlayerController extends Notifier<PositionState> {
   void setSeek(Duration position) {
     _allowStateUpdate = false;
     state = state.copyWith(position: position);
-    bounceBack.start(onComplete: () {
+    _bounceBack.start(onComplete: () {
       ref.read(musicControllerProvider.notifier).seek(position);
       _allowStateUpdate = true;
     });

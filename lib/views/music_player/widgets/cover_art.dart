@@ -1,7 +1,7 @@
 part of '../music_player.dart';
 
 class _CoverArt extends ConsumerWidget {
-  const _CoverArt({super.key});
+  const _CoverArt();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

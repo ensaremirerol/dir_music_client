@@ -21,7 +21,7 @@ class PlaylistTile extends ConsumerWidget {
       child: ListTile(
           leading: const Icon(Icons.music_note),
           title: Text(playlistDetailedModel.playlistName),
-          subtitle: Text('music_count').tr(namedArgs: {
+          subtitle: const Text('music_count').tr(namedArgs: {
             'count': playlistDetailedModel.songs.length.toString()
           }),
           onTap: onTap,

@@ -1,7 +1,7 @@
 part of '../playlist_view.dart';
 
 class _Body extends ConsumerWidget {
-  const _Body({super.key, required this.playlistId});
+  const _Body({required this.playlistId});
 
   final String playlistId;
 
@@ -43,7 +43,7 @@ class _Body extends ConsumerWidget {
                               'music_count'.tr(namedArgs: {
                                 'count': playlist.songs.length.toString()
                               }),
-                              style: Theme.of(context).textTheme.headline6,
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const SizedBox(
                               height: 20,
@@ -101,7 +101,9 @@ class _Body extends ConsumerWidget {
                         itemBuilder: (context) => [
                           PopupMenuItem(
                             onTap: () {
-                              ref.read(playlistProvider(playlistId).notifier).removeSong(playlist.songs[index].id);
+                              ref
+                                  .read(playlistProvider(playlistId).notifier)
+                                  .removeSong(playlist.songs[index].id);
                             },
                             child: const Text('remove_from_playlist').tr(),
                           ),

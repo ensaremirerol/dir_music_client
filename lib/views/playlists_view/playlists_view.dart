@@ -30,13 +30,16 @@ class PlaylistsView extends ConsumerWidget {
           error: (error) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text("${error.error}"),
+                content: Text('${error.error}'),
               ),
             );
           },
         );
       },
     );
-    return const ResponsiveBuilder(smallScreen: _Body());
+    return ResponsiveBuilder(
+        smallScreen: _Body(
+      key: key,
+    ));
   }
 }

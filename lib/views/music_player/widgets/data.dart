@@ -1,7 +1,7 @@
 part of '../music_player.dart';
 
 class _Data extends ConsumerWidget {
-  const _Data({super.key});
+  const _Data();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

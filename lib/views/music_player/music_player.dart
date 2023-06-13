@@ -18,14 +18,17 @@ part 'widgets/data.dart';
 
 final musicPlayerProvider =
     NotifierProvider<MusicPlayerController, PositionState>(
-      () => MusicPlayerController(),
-    );
+  () => MusicPlayerController(),
+);
 
 class MusicPlayer extends ConsumerWidget {
   const MusicPlayer({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const ResponsiveBuilder(smallScreen: _Body());
+    return ResponsiveBuilder(
+        smallScreen: _Body(
+      key: key,
+    ));
   }
 }

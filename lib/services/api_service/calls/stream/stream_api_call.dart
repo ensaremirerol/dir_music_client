@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:dio/src/response.dart';
 import 'package:flutter/services.dart';
 
 import '../../../../core/services/api_service/api_service.dart';

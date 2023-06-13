@@ -157,10 +157,6 @@ class ApiService {
           .add(RefreshTokenInterceptor(_dio, this, _refreshBearerToken!));
     }
     _dio.interceptors.add(LogInterceptor(
-      request: true,
-      requestBody: true,
-      requestHeader: true,
-      responseHeader: true,
       responseBody: true,
     ));
     _log('Interceptors initialized');

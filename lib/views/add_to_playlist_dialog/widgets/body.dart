@@ -8,7 +8,7 @@ class _Body extends ConsumerWidget {
     final state = ref.watch(addToPlaylistDialogProvider(songId));
     return Scaffold(
       appBar: AppBar(
-        title: Text('add_to_playlist').tr(),
+        title: const Text('add_to_playlist').tr(),
         surfaceTintColor: Theme.of(context).scaffoldBackgroundColor,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       ),

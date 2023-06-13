@@ -24,10 +24,9 @@ class DestructiveDialog extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text('cancel').tr()),
+            child: const Text('cancel').tr()),
         TextButton(
-            onPressed: onDestructivePressed,
-            child: Text(destructiveText).tr())
+            onPressed: onDestructivePressed, child: Text(destructiveText).tr())
       ],
     );
   }

@@ -1,7 +1,7 @@
 part of '../music_player.dart';
 
 class _MusicPlayerTab extends ConsumerWidget {
-  const _MusicPlayerTab({super.key});
+  const _MusicPlayerTab();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

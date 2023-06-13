@@ -9,7 +9,6 @@ import 'services/auth_service/auth_service.dart';
 import 'views/auth_gate/login_view/login_view.dart';
 import 'views/auth_gate/register_view/register_view.dart';
 import 'views/home_shell_view/home_shell_view.dart';
-import 'views/music_player/music_player.dart';
 import 'views/playlist_view/playlist_view.dart';
 import 'views/playlists_view/playlists_view.dart';
 import 'views/search_view/search_view.dart';
@@ -89,6 +88,7 @@ final routes = GoRouter(
             if (state.pathParameters['id'] == null) {
               return '/home';
             }
+            throw Exception('Invalid playlist id');
           },
           pageBuilder: (context, state) {
             final String? id = state.pathParameters['id'];
