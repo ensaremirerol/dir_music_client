@@ -18,11 +18,7 @@ class _Body extends ConsumerWidget {
                     useRootNavigator: true,
                     useSafeArea: true,
                     isScrollControlled: true,
-                    barrierColor: Colors.transparent,
-                    constraints: BoxConstraints(
-                      maxHeight: MediaQuery.of(context).size.height,
-                      maxWidth: MediaQuery.of(context).size.width,
-                    ),
+                    barrierColor: Theme.of(context).scaffoldBackgroundColor,
                     context: context,
                     builder: (context) => const _PlaylistTab(),
                   );

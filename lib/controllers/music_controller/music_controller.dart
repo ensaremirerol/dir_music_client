@@ -157,6 +157,6 @@ class MusicController extends Notifier<MusicControllerState> {
   }
 
   String _createSongUrl(MetadataModel song) {
-    return 'http://localhost:8080/bff/songs/${song.id}/stream';
+    return '${const String.fromEnvironment('API_URL', defaultValue: 'http://localhost:8080')}/bff/songs/${song.id}/stream';
   }
 }

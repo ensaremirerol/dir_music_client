@@ -72,7 +72,8 @@ final setupTasks = [
       dependencies: ['Logger'],
       task: () {
         final apiService = ApiService(
-          baseUrl: 'http://localhost:8080',
+          baseUrl: const String.fromEnvironment('API_URL',
+              defaultValue: 'http://localhost:8080'),
           refreshBearerToken: (apiService) async {
             apiService.bearerToken = null;
             try {

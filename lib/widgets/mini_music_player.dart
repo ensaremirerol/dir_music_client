@@ -30,7 +30,7 @@ class _MiniMusicPlayerState extends ConsumerState<MiniMusicPlayer> {
           leading: SizedBox(
             height: 50,
             width: 50,
-            child:  state.currentSong != null
+            child: state.currentSong != null
                 ? CoverArtWidget(
                     id: state.currentSong!.id,
                   )
@@ -45,11 +45,7 @@ class _MiniMusicPlayerState extends ConsumerState<MiniMusicPlayer> {
               useRootNavigator: true,
               useSafeArea: true,
               isScrollControlled: true,
-              barrierColor: Colors.transparent,
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height,
-                maxWidth: MediaQuery.of(context).size.width,
-              ),
+              barrierColor: Theme.of(context).scaffoldBackgroundColor,
               context: context,
               builder: (context) => const MusicPlayer(),
             );
