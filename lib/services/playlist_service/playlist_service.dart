@@ -45,7 +45,7 @@ class PlaylistService {
   }
 
   FutureOr<List<PlaylistDetailedModel>> get detailedPlaylists =>
-      _detailedPlaylists;
+      getDetailedPlaylists();
 
   Future<List<PlaylistDetailedModel>> _getDetailedPlaylists() async {
     _log('Getting playlists');

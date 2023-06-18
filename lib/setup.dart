@@ -104,16 +104,6 @@ final setupTasks = [
         );
       }),
   SetupTask(
-    name: 'ThemeService',
-    dependencies: [],
-    task: () async {
-      final themeStr = await rootBundle.loadString('assets/other/theme.json');
-      final themeJson = jsonDecode(themeStr);
-      final theme = ThemeDecoder.decodeThemeData(themeJson);
-      InstanceController().addInstance(ThemeData, theme!);
-    },
-  ),
-  SetupTask(
       name: 'AuthService',
       dependencies: [
         'Logger',

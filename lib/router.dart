@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,23 +21,21 @@ Page _getPageByPlatform(
   bool fullscreenDialog = false,
   bool maintainState = true,
 ]) {
-  try {
-    if (Platform.isIOS) {
-      return CupertinoPage(
-          child: child,
-          fullscreenDialog: fullscreenDialog,
-          maintainState: maintainState);
-    }
+  if (kIsWeb || Platform.isAndroid)
     return MaterialPage(
         child: child,
         fullscreenDialog: fullscreenDialog,
         maintainState: maintainState);
-  } catch (e) {
-    return MaterialPage(
+  if (Platform.isIOS) {
+    return CupertinoPage(
         child: child,
         fullscreenDialog: fullscreenDialog,
         maintainState: maintainState);
   }
+  return MaterialPage(
+      child: child,
+      fullscreenDialog: fullscreenDialog,
+      maintainState: maintainState);
 }
 
 final GlobalKey<NavigatorState> shellNavigatorKey =

@@ -16,7 +16,7 @@ class _Body extends ConsumerWidget {
         child: Column(children: [
           const SizedBox(height: 16),
           DirTextFormField(
-            label: 'search',
+            label: 'search'.tr(),
             onChanged: (value) {
               ref
                   .read(searchViewControllerProvider.notifier)
@@ -49,8 +49,8 @@ class _Body extends ConsumerWidget {
                                 onTap: () {
                                   showDialog(
                                     context: context,
-                                    builder: (context) =>
-                                        AddToPlaylistDialog(songId: data.searchResults[index].id),
+                                    builder: (context) => AddToPlaylistDialog(
+                                        songId: data.searchResults[index].id),
                                   );
                                 },
                                 child: const Text('add_to_playlist').tr(),

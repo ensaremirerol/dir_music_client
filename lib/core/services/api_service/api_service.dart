@@ -156,13 +156,14 @@ class ApiService {
       _dio.interceptors
           .add(RefreshTokenInterceptor(_dio, this, _refreshBearerToken!));
     }
-    _dio.interceptors.add(LogInterceptor(
-      responseBody: true,
-    ));
+    _dio.interceptors.add(LogInterceptor());
     _log('Interceptors initialized');
   }
 
   void _log(String message, {Level level = Level.debug}) {
-    _logger.log(level, '<ApiService>: $message');
+    final String _message = message.length > 255
+        ? message.substring(0, 255) + '...'
+        : message.substring(0, message.length);
+    _logger.log(level, '<ApiService>: $_message');
   }
 }

@@ -1,10 +1,12 @@
 import 'package:audio_session/audio_session.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 
 import '../../core/utils/instance_controller.dart';
 import '../../models/metadata/metadata_model.dart';
 import '../../services/auth_service/auth_service.dart';
+import 'byte_source.dart';
 import 'music_controller_state/music_controller_state.dart';
 
 final musicControllerProvider =
@@ -48,11 +50,14 @@ class MusicController extends Notifier<MusicControllerState> {
     final newPlaylist = [...currentPlaylist];
     newPlaylist.add(song);
     final audioSource = _audioPlayer.audioSource as ConcatenatingAudioSource;
-    audioSource.add(AudioSource.uri(Uri.parse(_createSongUrl(song)),
-        headers: {
-          'Authorization': 'Bearer ${_authService.accessToken}',
-        },
-        tag: song.id));
+    if (kIsWeb)
+      audioSource.add(BytesSource(song.id));
+    else
+      audioSource.add(AudioSource.uri(Uri.parse(_createSongUrl(song)),
+          headers: {
+            'Authorization': 'Bearer ${_authService.accessToken}',
+          },
+          tag: song.id));
     state = state.copyWith(playlist: newPlaylist);
   }
 
@@ -118,9 +123,12 @@ class MusicController extends Notifier<MusicControllerState> {
     final ConcatenatingAudioSource playlist =
         ConcatenatingAudioSource(children: []);
     songs.forEach((song) {
-      playlist.add(AudioSource.uri(Uri.parse(_createSongUrl(song)),
-          tag: song.id,
-          headers: {'Authorization': 'Bearer ${_authService.accessToken}'}));
+      if (kIsWeb)
+        playlist.add(BytesSource(song.id));
+      else
+        playlist.add(AudioSource.uri(Uri.parse(_createSongUrl(song)),
+            tag: song.id,
+            headers: {'Authorization': 'Bearer ${_authService.accessToken}'}));
     });
     return playlist;
   }
@@ -133,16 +141,8 @@ class MusicController extends Notifier<MusicControllerState> {
         _audioPlayer.audioSource as ConcatenatingAudioSource;
     MetadataModel? currentSong;
 
-    try {
-      currentSong = state.playlist?.firstWhere(
-        (element) =>
-            element.id ==
-            (currentSource.children[_audioPlayer.currentIndex!]
-                    as UriAudioSource)
-                .tag,
-      );
-    } catch (e) {
-      currentSong = null;
+    if (state.playlist != null && _audioPlayer.currentIndex != null) {
+      currentSong = state.playlist![_audioPlayer.currentIndex!];
     }
 
     state = state.copyWith(
