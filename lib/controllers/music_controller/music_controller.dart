@@ -101,6 +101,9 @@ class MusicController extends Notifier<MusicControllerState> {
 
   void seek(Duration position) {
     _audioPlayer.seek(position);
+    if (!_audioPlayer.playing) {
+      play();
+    }
   }
 
   void next() {
@@ -137,8 +140,6 @@ class MusicController extends Notifier<MusicControllerState> {
     if (_audioPlayer.audioSource == null) {
       return;
     }
-    final ConcatenatingAudioSource currentSource =
-        _audioPlayer.audioSource as ConcatenatingAudioSource;
     MetadataModel? currentSong;
 
     if (state.playlist != null && _audioPlayer.currentIndex != null) {

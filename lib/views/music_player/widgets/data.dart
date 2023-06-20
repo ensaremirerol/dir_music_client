@@ -90,6 +90,7 @@ class _Data extends ConsumerWidget {
     if (value.inSeconds == 0 || duration.inSeconds == 0) {
       return 0.0;
     }
-    return value.inSeconds.toDouble() / duration.inSeconds.toDouble();
+    return clampDouble(
+        value.inSeconds.toDouble() / duration.inSeconds.toDouble(), 0, 1);
   }
 }

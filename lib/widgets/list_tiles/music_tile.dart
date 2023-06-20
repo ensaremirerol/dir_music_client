@@ -23,11 +23,10 @@ class MusicTile extends ConsumerWidget {
               child: CoverArtWidget(id: music.id, errorSize: 50)),
           title: Text(music.title),
           subtitle: Text(music.artist),
-          onTap: onTap != null && music.listenable
-              ? () {
-                  ref.read(musicControllerProvider.notifier).playSong(music);
-                }
-              : null,
+          onTap: onTap ??
+              () {
+                ref.read(musicControllerProvider.notifier).playSong(music);
+              },
           trailing: trailing),
     );
   }

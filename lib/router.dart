@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -44,6 +45,19 @@ final GlobalKey<NavigatorState> shellNavigatorKey =
 final GlobalKey<NavigatorState> rootNavigatorKey =
     InstanceController().getByKey('RootNavigator');
 
+FutureOr<String?> _authGuard(BuildContext context, GoRouterState state) {
+  try {
+    final AuthService authService =
+        InstanceController().getByType<AuthService>();
+    if (authService.isLoggedIn) {
+      return null;
+    }
+    return '/auth/login';
+  } catch (e) {
+    return '/auth/login';
+  }
+}
+
 // see: https://pub.dev/packages/go_router
 final routes = GoRouter(
     navigatorKey: InstanceController().getByKey('RootNavigator'),
@@ -73,21 +87,28 @@ final routes = GoRouter(
         routes: [
           GoRoute(
               path: '/home',
+              redirect: _authGuard,
               pageBuilder: (context, state) =>
                   _getPageByPlatform(const PlaylistsView())),
           GoRoute(
               path: '/search',
+              redirect: _authGuard,
               pageBuilder: (context, state) =>
                   _getPageByPlatform(const SearchView())),
           GoRoute(
               path: '/profile',
+              redirect: _authGuard,
               pageBuilder: (context, state) =>
                   _getPageByPlatform(UserProfilePage())),
         ],
       ),
       GoRoute(
           path: '/playlists/:id',
-          redirect: (context, state) {
+          redirect: (context, state) async {
+            final String? authRedirect = await _authGuard(context, state);
+            if (authRedirect != null) {
+              return authRedirect;
+            }
             if (state.pathParameters['id'] == null) {
               return '/home';
             }

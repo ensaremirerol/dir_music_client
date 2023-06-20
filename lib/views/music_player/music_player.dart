@@ -10,6 +10,7 @@ import '../../widgets/cover_art_widget/cover_art_widget.dart';
 import '../add_to_playlist_dialog/add_to_playlist_dialog.dart';
 import 'controllers/music_player_controller.dart';
 import 'states/position_state.dart';
+import 'dart:ui';
 
 part 'widgets/body.dart';
 part 'widgets/music_player_tab.dart';
