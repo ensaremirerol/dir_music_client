@@ -13,7 +13,7 @@ class _Body extends ConsumerWidget {
         if (next.hasValue && next.requireValue.error == 'register_success') {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(next.requireValue.error),
+              content: Text(next.requireValue.error).tr(),
             ),
           );
           context.go('/auth/login');
@@ -40,8 +40,8 @@ class _Body extends ConsumerWidget {
                   children: [
                     const SizedBox(height: 20),
                     DirTextFormField(
-                      label: 'username',
-                      hint: 'username',
+                      label: 'username'.tr(),
+                      hint: 'username'.tr(),
                       prefixIcon: const Icon(Icons.person),
                       onChanged: (value) {
                         ref
@@ -57,8 +57,8 @@ class _Body extends ConsumerWidget {
                     ),
                     const SizedBox(height: 20),
                     DirTextFormField(
-                      label: 'password',
-                      hint: 'password',
+                      label: 'password'.tr(),
+                      hint: 'password'.tr(),
                       obscureText: true,
                       prefixIcon: const Icon(Icons.lock),
                       onChanged: (value) {
@@ -91,7 +91,7 @@ class _Body extends ConsumerWidget {
                     DirPrimaryButton(
                       label: const Text('register').tr(),
                       onPressed: () {
-                        context.go('/auth/register');
+                        GoRouter.of(context).push('/auth/register');
                       },
                     ),
                   ],

@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 class InfoCard extends StatelessWidget {
   final String text;
   final IconData icon;
-  final Function onPressed;
+  final Function()? onPressed;
 
   const InfoCard(
-      {required this.text, required this.icon, required this.onPressed});
+      {required this.text, required this.icon,  this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (_, constraints) {
       return GestureDetector(
-        onTap: () => onPressed(),
+        onTap: onPressed,
         child: Card(
           margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
           child: ListTile(

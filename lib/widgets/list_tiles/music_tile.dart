@@ -16,16 +16,18 @@ class MusicTile extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Card(
       child: ListTile(
+          enabled: music.listenable,
           leading: SizedBox(
               height: 50,
               width: 50,
               child: CoverArtWidget(id: music.id, errorSize: 50)),
           title: Text(music.title),
           subtitle: Text(music.artist),
-          onTap: onTap ??
-              () {
-                ref.read(musicControllerProvider.notifier).playSong(music);
-              },
+          onTap: onTap != null && music.listenable
+              ? () {
+                  ref.read(musicControllerProvider.notifier).playSong(music);
+                }
+              : null,
           trailing: trailing),
     );
   }

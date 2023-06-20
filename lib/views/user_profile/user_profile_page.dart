@@ -41,37 +41,14 @@ class UserProfilePage extends ConsumerWidget {
                   const TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20, width: 200, child: Divider()),
-
             InfoCard(
-                text: data.phoneNumber?.toString() ?? 'No phone number',
-                icon: Icons.phone,
-                onPressed: () => ref
-                    .read(userProfileProvider.notifier)
-                    .logout()), //TODO: change to phone number
+              text: data.phoneNumber?.toString() ?? 'No phone number',
+              icon: Icons.phone,
+            ),
             InfoCard(
-                text: data.dateOfBirth?.toString() ?? 'No date of birth',
-                icon: Icons.calendar_today,
-                onPressed: () => ref
-                    .read(userProfileProvider.notifier)
-                    .logout()), //TODO: change to date of birth
-            InfoCard(
-                text: data.followerCount?.toString() ?? 'No followers',
-                icon: Icons.group,
-                onPressed: () => ref
-                    .read(userProfileProvider.notifier)
-                    .logout()), //TODO: change to followers
-            ElevatedButton(
-                onPressed: () {}, // TODO: implement delete account
-                child: const Text(
-                  'DELETE ACCOUNT',
-                ),
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.redAccent,
-                    textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ))),
-            const Spacer(),
+              text: data.followerCount?.toString() ?? 'No followers',
+              icon: Icons.group,
+            ),
             DirPrimaryButton(
                 label: const Text('LOGOUT'),
                 onPressed: () =>

@@ -23,8 +23,9 @@ class RegisterView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ResponsiveBuilder(
         smallScreen: Scaffold(
+            appBar: AppBar(),
             body: _Body(
-      key: key,
-    )));
+              key: key,
+            )));
   }
 }

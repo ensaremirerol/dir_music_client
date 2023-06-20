@@ -58,8 +58,8 @@ class _BodyState extends ConsumerState<_Body> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       DirTextFormField(
-                        label: 'username',
-                        hint: 'username',
+                        label: 'username'.tr(),
+                        hint: 'username'.tr(),
                         prefixIcon: const Icon(Icons.person),
                         onChanged: (value) {
                           ref
@@ -75,8 +75,8 @@ class _BodyState extends ConsumerState<_Body> {
                       ),
                       const SizedBox(height: 20),
                       DirTextFormField(
-                        label: 'phone_number',
-                        hint: 'phone_number',
+                        label: 'phone_number'.tr(),
+                        hint: 'phone_number'.tr(),
                         inputFormatters: [
                           FilteringTextInputFormatter.digitsOnly,
                         ],
@@ -95,8 +95,8 @@ class _BodyState extends ConsumerState<_Body> {
                       ),
                       const SizedBox(height: 20),
                       DirTextFormField(
-                        label: 'date_of_birth',
-                        hint: 'date_of_birth',
+                        label: 'date_of_birth'.tr(),
+                        hint: 'date_of_birth'.tr(),
                         controller: _dateController,
                         prefixIcon: const Icon(Icons.calendar_today),
                         validator: (value) {
@@ -123,8 +123,8 @@ class _BodyState extends ConsumerState<_Body> {
                       ),
                       const SizedBox(height: 20),
                       DirTextFormField(
-                        label: 'password',
-                        hint: 'password',
+                        label: 'password'.tr(),
+                        hint: 'password'.tr(),
                         obscureText: true,
                         prefixIcon: const Icon(Icons.lock),
                         controller: _passwordController,
@@ -142,8 +142,8 @@ class _BodyState extends ConsumerState<_Body> {
                       ),
                       const SizedBox(height: 20),
                       DirTextFormField(
-                        label: ' ',
-                        hint: 'confirm_password',
+                        label: 'confirm_password'.tr(),
+                        hint: 'confirm_password'.tr(),
                         obscureText: true,
                         prefixIcon: const Icon(Icons.lock),
                         controller: _confirmPasswordController,

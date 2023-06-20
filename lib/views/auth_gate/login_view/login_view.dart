@@ -28,7 +28,7 @@ class LoginView extends ConsumerWidget {
       (previous, next) {
         InstanceController()
             .getByType<SnackBarService>()
-            .showErrorMessage('login_failed'.tr());
+            .showErrorMessage('err_login_failed_invalid_credentials'.tr());
       },
     );
     return ResponsiveBuilder(
